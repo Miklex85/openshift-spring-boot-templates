@@ -476,7 +476,7 @@
             "description": "Size of persistent storage for database volume.",
             "value": "1Gi",
             "required": true
-        }
+        },
         {
             "name": "IMAGE_STREAM_NAMESPACE",
             "displayName": "ImageStream Namespace",
