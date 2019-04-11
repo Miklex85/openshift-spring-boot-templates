@@ -417,6 +417,11 @@
             "required": true
         },
         {
+            "name": "HOSTNAME_HTTP",
+            "displayName": "Custom http Route Hostname",
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: \u003capplication-name\u003e-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+        },
+        {
             "name": "SOURCE_REPOSITORY_URL",
             "displayName": "Git Repository URL",
             "description": "Git source URI for application",
