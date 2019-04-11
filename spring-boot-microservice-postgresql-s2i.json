@@ -5,9 +5,9 @@
         "name": "spring-boot-microservice-postgresql-s2i",
         "creationTimestamp": null,
         "annotations": {
-            "description": "Template for Spring Boot Microservice Deployment",
+            "description": "Template for Spring Boot Microservice Deployment w/ PostgreSQL Database",
             "iconClass": "icon-spring",
-            "openshift.io/display-name": "Spring Boot JDK 8",
+            "openshift.io/display-name": "Spring Boot (JDK 8) + PostgreSQL",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "java",
             "template.openshift.io/long-description": "This template defines resources needed to deploy a Spring Boot based application.",
@@ -38,6 +38,30 @@
                 ],
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "The database server's port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-postgresql"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "port": 5432,
+                        "targetPort": 5432
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
                 }
             }
         },
@@ -158,6 +182,10 @@
                         "containers": [
                             {
                                 "env": [
+                                    {
+                                      "name": "DB_SERVICE_NAME",
+                                      "value": "${APPLICATION_NAME}-postgresql"
+                                    },
                                     {
                                       "name": "SPRING_DATASOURCE_USERNAME",
                                       "valueFrom": {
@@ -504,6 +532,7 @@
         }
     ],
     "labels": {
+        "app": "${APPLICATION_NAME}",
         "template": "spring-boot-microservice-postgresql-s2i",
         "xpaas": "1.0.0"
     }
